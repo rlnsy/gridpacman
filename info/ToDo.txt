@@ -1,0 +1,7 @@
+To Do:
+construct game environment
+create core ghost (I think we can still build off Stalker bug, but the target will be different)
+create expanded ghosts
+create ghost modes (will have to calibrate 'time' based on number of acts and running speed)
+food: dots + cherries
+point system

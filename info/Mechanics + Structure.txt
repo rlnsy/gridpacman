@@ -1,0 +1,36 @@
+* article about fundamental pac-man mechanics:
+  http://gameinternals.com/post/2072558330/understanding-pac-man-ghost-behavior
+  
+  -Ghost Movement Modes
+  -Target Tiles
+  -Basic Ghost Movement Rules
+  -Individual Ghost Personalities
+  
+  Ghost Behaviours:
+	Make turns based on target tile
+	Cannot turn at 4-way intersections, go straight to opposite side
+	(Except in frightened mode)
+	
+	Modes:
+		Chase
+			Normal mode
+		Scatter
+			Ghost targets all = tiles at corners of board
+		Frightened
+			Ghosts randomly decide turns
+			Ghosts are blue and can be eaten
+		
+	Blinky(Red):
+		Starts outside ghost house
+		Target = PacMan
+		Special Cruise Elroy mode
+	Pinky:
+		Starts in ghost house
+		target = four tiles ahead of PacMan
+	Inky(Blue):
+		Stays in ghost house until PacMan has eaten 30 dots
+		"draw line" from Blinky to (2 spaces in front of PacMan), double the line to target tile
+	Clyde(Orange):
+		Doesn't leave ghost house until a third of the dots have been eaten
+		if more than 8 tiles from PacMan, target = PacMan
+		if less than 8 tiles from PacMan, target = Scatter mode target
