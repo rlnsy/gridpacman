@@ -42,12 +42,17 @@ public class Ghost extends Bug
             targetTile = chooseTargetTile();
         else if(mode.equals("SCATTER"))
             targetTile = scatterTarget;
-        Location next = bestLocation(possibleLocations());
+        Location next = getLocation();
         if(mode.equals("FRIGHTENED"))
         {
             setColor(Color.blue);
             int listSize = possibleLocations().size();
             next = possibleLocations().get((int)(Math.random()*listSize));
+        }
+        else
+        {
+            setColor(null);
+            next = bestLocation(possibleLocations());
         }
         moveDirection = getLocation().getDirectionToward(next);
         moveTo(next);

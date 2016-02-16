@@ -158,10 +158,12 @@ public class PacManGame extends World<Actor>
     // Post: Switches ghost mode
     public void switchMode()
     {
-        if(mode.equals("SCATTER"))
-            mode = "CHASE";
-        else if(mode.equals("CHASE"))
-            mode = "SCATTER";
+        if(getMode().equals("SCATTER"))
+            setMode("CHASE");
+        else if(getMode().equals("CHASE"))
+            setMode("SCATTER");
+        else if(getMode().equals("FRIGHTENED"))
+            setMode("CHASE");
         steps = 0;
     }
     // Pre: none 
@@ -175,6 +177,11 @@ public class PacManGame extends World<Actor>
     public ArrayList<Location> getDotLocs()
     {
         return DOT_LOCS;
+    }
+    
+    public void setMode(String mode)
+    {
+        this.mode = mode;
     }
     
     public ArrayList<Location> getNoDotLocations()

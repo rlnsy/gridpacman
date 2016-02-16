@@ -26,6 +26,8 @@ public class PacMan extends Bug
     {
         if (canMove())
             move();
+        if(dotsEaten == 20)
+            game.setMode("FRIGHTENED");
     }
     
     // pre: PacMan is on a grid
