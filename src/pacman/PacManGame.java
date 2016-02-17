@@ -1,15 +1,12 @@
 package pacman;
 
 // ROWAN LINDSAY + NAT REDFERN
-// 2/02/16
 // APCS
-// a blueprint for PacManGame class
 
 import info.gridworld.grid.*;
 import info.gridworld.actor.*;
 import info.gridworld.world.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class PacManGame extends World<Actor>
 {
@@ -26,8 +23,10 @@ public class PacManGame extends World<Actor>
     private String mode;
     private final String START_MODE = "SCATTER";
     private int steps;
+    private static final double CURRENT_VERSION = 0.5;
     private static final String GAME_MESSAGE = 
-            "GridPacMan v0.5a   |   Use arrow keys to move - avoid the ghosts";
+            "GridPacMan v" + CURRENT_VERSION + 
+            "a   |   Use arrow keys to move - avoid the ghosts";
     private boolean gameOver;
     private static World WORLD;
     
@@ -73,14 +72,17 @@ public class PacManGame extends World<Actor>
     // Post: rotates character depending upon key pressed
     public boolean keyPressed(String description, Location loc)
     {
-        if (description.equals("UP"))
-            PAC_MAN.turnTo(0);
-        else if (description.equals("DOWN"))
-             PAC_MAN.turnTo(180);
-        else if (description.equals("LEFT"))
-             PAC_MAN.turnTo(270);
-        else if (description.equals("RIGHT"))
-             PAC_MAN.turnTo(90);
+        if(!gameOver)
+        {
+            if (description.equals("UP"))
+                PAC_MAN.turnTo(0);
+            else if (description.equals("DOWN"))
+                 PAC_MAN.turnTo(180);
+            else if (description.equals("LEFT"))
+                 PAC_MAN.turnTo(270);
+            else if (description.equals("RIGHT"))
+                 PAC_MAN.turnTo(90);
+        }
         return true;  
     }
     
