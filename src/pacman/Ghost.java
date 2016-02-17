@@ -47,7 +47,8 @@ public class Ghost extends Bug
         {
             setColor(Color.blue);
             int listSize = possibleLocations().size();
-            next = possibleLocations().get((int)(Math.random()*listSize));
+            if(listSize >= 1)
+                next = possibleLocations().get((int)(Math.random()*listSize));
         }
         else
         {
@@ -56,9 +57,6 @@ public class Ghost extends Bug
         }
         moveDirection = getLocation().getDirectionToward(next);
         moveTo(next);
-        
-        if(gr.get(next).equals(PAC_MAN))
-            game.endGame();
     }
     
     // Pre: none

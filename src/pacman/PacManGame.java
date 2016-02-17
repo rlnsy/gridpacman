@@ -27,6 +27,7 @@ public class PacManGame extends World<Actor>
     private int steps;
     private static final String GAME_MESSAGE = 
             "GridPacMan v0.5a   |   Use arrow keys to move - avoid the ghosts";
+    private boolean gameOver;
     
     // initializes the world
     public static void main(String[] args)
@@ -41,7 +42,7 @@ public class PacManGame extends World<Actor>
     public PacManGame()
     {
        super(new BoundedGrid<Actor>(31,28));
- 
+       gameOver = false;
        NO_DOT_ZONE = getNoDotLocations();
        
        Grid<Actor> gr = getGrid();
@@ -85,19 +86,23 @@ public class PacManGame extends World<Actor>
     public void step()
     {
         Grid<Actor> gr = getGrid();
-        
-        ArrayList<Actor> actors = new ArrayList<Actor>();
-        for (Location loc : gr.getOccupiedLocations())
-            actors.add(gr.get(loc));
-        for (Actor a : actors)
+        if(PAC_MAN.getGrid() == gr && !gameOver)
         {
-            // only act if another actor hasn't removed a
-            if (a.getGrid() == gr && PAC_MAN.getGrid() == gr)
-                a.act();
+            ArrayList<Actor> actors = new ArrayList<Actor>();
+            for (Location loc : gr.getOccupiedLocations())
+                actors.add(gr.get(loc));
+            for (Actor a : actors)
+            {
+                // only act if another actor hasn't removed a
+                if (a.getGrid() == gr && PAC_MAN.getGrid() == gr)
+                    a.act();
+            }
+            makeBackground(gr,false);
+            steps++;
+            checkTimer();
         }
-        makeBackground(gr,false);
-        steps++;
-        checkTimer();
+        else if(!gameOver)
+            endGame();
     }
     
     // Pre: none
@@ -189,6 +194,7 @@ public class PacManGame extends World<Actor>
     
     public void endGame()
     {
+        gameOver = true;
         System.out.println(" ** GAME OVER **");
     }
     
