@@ -56,6 +56,9 @@ public class Ghost extends Bug
         }
         moveDirection = getLocation().getDirectionToward(next);
         moveTo(next);
+        
+        if(gr.get(next).equals(PAC_MAN))
+            game.endGame();
     }
     
     // Pre: none

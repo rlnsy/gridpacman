@@ -25,11 +25,14 @@ public class PacManGame extends World<Actor>
     private String mode;
     private final String START_MODE = "SCATTER";
     private int steps;
+    private static final String GAME_MESSAGE = 
+            "GridPacMan v0.5a   |   Use arrow keys to move - avoid the ghosts";
     
     // initializes the world
     public static void main(String[] args)
     {
       PacManGame world = new PacManGame();
+      world.setMessage(GAME_MESSAGE);
       world.show();
     }
    
@@ -101,7 +104,7 @@ public class PacManGame extends World<Actor>
     // Post: makes background black
     public void makeBackground(Grid gr, boolean firstRun)
     {
-        //placeDots(gr);
+        placeDots(gr);
         
         int rows = getGrid().getNumRows();
         int cols = getGrid().getNumCols();
@@ -142,7 +145,7 @@ public class PacManGame extends World<Actor>
         }
     }
     // Pre: none
-    // Post: ___________
+    // Post:
     public void checkTimer()
     {
         if(steps >= PHASE_LENGTH)
@@ -182,6 +185,11 @@ public class PacManGame extends World<Actor>
     public void setMode(String mode)
     {
         this.mode = mode;
+    }
+    
+    public void endGame()
+    {
+        System.out.println(" ** GAME OVER **");
     }
     
     public ArrayList<Location> getNoDotLocations()
