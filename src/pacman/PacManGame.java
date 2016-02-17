@@ -9,6 +9,7 @@ import info.gridworld.grid.*;
 import info.gridworld.actor.*;
 import info.gridworld.world.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class PacManGame extends World<Actor>
 {
@@ -28,11 +29,13 @@ public class PacManGame extends World<Actor>
     private static final String GAME_MESSAGE = 
             "GridPacMan v0.5a   |   Use arrow keys to move - avoid the ghosts";
     private boolean gameOver;
+    private static World WORLD;
     
     // initializes the world
     public static void main(String[] args)
     {
       PacManGame world = new PacManGame();
+      WORLD = world;
       world.setMessage(GAME_MESSAGE);
       world.show();
     }
@@ -100,6 +103,7 @@ public class PacManGame extends World<Actor>
             makeBackground(gr,false);
             steps++;
             checkTimer();
+            WORLD.setMessage(stepMessage());
         }
         else if(!gameOver)
             endGame();
@@ -180,6 +184,12 @@ public class PacManGame extends World<Actor>
     {
         return mode;
     }
+    
+    public String stepMessage()
+    {
+        return GAME_MESSAGE + '\n' + "Current Mode: " + mode
+                + '\t' + '\t' + "Dots eaten: " + PAC_MAN.getDotsEaten();
+    }
     // Pre: none 
     // Post: returns valid dot locations
     public ArrayList<Location> getDotLocs()
@@ -196,6 +206,7 @@ public class PacManGame extends World<Actor>
     {
         gameOver = true;
         System.out.println(" ** GAME OVER **");
+        WORLD.setMessage(" ** GAME OVER **");
     }
     
     public ArrayList<Location> getNoDotLocations()

@@ -62,4 +62,9 @@ public class PacMan extends Bug
         if(gr.get(turnLoc) instanceof BackTile || gr.get(turnLoc) instanceof Dot)
             setDirection(direction);
     }
+    
+    public int getDotsEaten()
+    {
+        return dotsEaten;
+    }
 }
