@@ -16,7 +16,7 @@ public class PacManGame extends World<Actor>
     private final Inky INKY;
     private final Clyde CLYDE;
     private final GameBoard BOARD = new GameBoard(getGrid());
-    private final int PHASE_LENGTH = 16;
+    private final int PHASE_LENGTH = 30;
     private final String START_MODE = "SCATTER";
     private int steps;
     private static final double CURRENT_VERSION = 0.5;
@@ -113,11 +113,6 @@ public class PacManGame extends World<Actor>
     {
         if(steps >= PHASE_LENGTH)
             switchMode();
-        else if(steps >= PHASE_LENGTH/2 && mode.equals("FRIGHTENED"))
-        {
-            mode = "CHASE";
-            steps = 0;
-        }
     }
     
     // Pre: none

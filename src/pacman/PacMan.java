@@ -26,8 +26,6 @@ public class PacMan extends Bug
     {
         if (canMove())
             move();
-        if(dotsEaten == 20)
-            game.setMode("FRIGHTENED");
     }
     
     // pre: PacMan is on a grid
@@ -40,11 +38,19 @@ public class PacMan extends Bug
             return;
         Location loc = getLocation();
         Location next = loc.getAdjacentLocation(getDirection());
-        if(gr.get(next) instanceof Dot)
+        Actor neighbour = gr.get(next);
+        if(neighbour instanceof Dot)
         {
+            if(neighbour instanceof Cherry)
+            {
+                game.setMode("FRIGHTENED");
+            }
+            else
+                dotsEaten++;
             game.getBoard().getDotLocs().remove(next);
-            dotsEaten++;
-        }  
+        }
+        else if(neighbour instanceof Ghost && game.getMode().equals("FRIGHTENED"))
+            neighbour.removeSelfFromGrid();
         if (gr.isValid(next))
             moveTo(next);
         else

@@ -56,7 +56,10 @@ public class Ghost extends Bug
             next = bestLocation(possibleLocations());
         }
         moveDirection = getLocation().getDirectionToward(next);
-        moveTo(next);
+        if(gr.get(next).equals(PAC_MAN) && game.getMode().equals("FRIGHTENED"))
+            removeSelfFromGrid();
+        else
+            moveTo(next);
     }
     
     // Pre: none
@@ -132,6 +135,7 @@ public class Ghost extends Bug
         int dir = getLocation().getDirectionToward(loc);
         return ((dir % 90) == 0) || ((dir % 90) == 90);
     }
+
     
     // Pre: none
     // Post: returns target tile
