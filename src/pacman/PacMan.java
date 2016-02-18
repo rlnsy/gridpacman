@@ -42,7 +42,7 @@ public class PacMan extends Bug
         Location next = loc.getAdjacentLocation(getDirection());
         if(gr.get(next) instanceof Dot)
         {
-            game.getDotLocs().remove(next);
+            game.getBoard().getDotLocs().remove(next);
             dotsEaten++;
         }  
         if (gr.isValid(next))
