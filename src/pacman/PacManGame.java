@@ -2,6 +2,7 @@ package pacman;
 
 // ROWAN LINDSAY + NAT REDFERN
 // APCS
+// v0.5 Experimental
 
 import info.gridworld.grid.*;
 import info.gridworld.actor.*;
