@@ -2,12 +2,14 @@ package pacman;
 
 // ROWAN LINDSAY + NAT REDFERN
 // APCS
-// v0.5.1 -alpha
+// v0.5.1 -experimental
 
 import info.gridworld.grid.*;
 import info.gridworld.actor.*;
 import info.gridworld.world.*;
 import java.util.ArrayList;
+import java.io.*;
+import javax.sound.sampled.*;
 
 public class PacManGame extends World<Actor>
 {
@@ -20,7 +22,7 @@ public class PacManGame extends World<Actor>
     private final int PHASE_LENGTH = 30;
     private final String START_MODE = "SCATTER";
     private int steps;
-    private static final String CURRENT_VERSION = "0.5.1a";
+    private static final String CURRENT_VERSION = "0.5.1e";
     private static final String GAME_MESSAGE = 
             "GridPacMan v" + CURRENT_VERSION + 
             "   |   Use arrow keys to move - avoid the ghosts";
@@ -64,6 +66,7 @@ public class PacManGame extends World<Actor>
        //BOARD.makeBackground(true);
        BOARD.makeBoard();
        BOARD.placeDots();
+       playMusic();
     }
     // Pre: none 
     // Post: rotates character depending upon key pressed
@@ -127,6 +130,27 @@ public class PacManGame extends World<Actor>
         else if(getMode().equals("FRIGHTENED"))
             setMode("CHASE");
         steps = 0;
+    }
+    
+    public void playMusic()
+    {
+        try {
+            File yourFile = new File("./src/pacman/pacman_beginning.wav");
+            AudioInputStream stream;
+            AudioFormat format;
+            DataLine.Info info;
+            Clip clip;
+
+            stream = AudioSystem.getAudioInputStream(yourFile);
+            format = stream.getFormat();
+            info = new DataLine.Info(Clip.class, format);
+            clip = (Clip) AudioSystem.getLine(info);
+            clip.open(stream);
+            clip.start();
+    }
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
     
     // Pre: none 
