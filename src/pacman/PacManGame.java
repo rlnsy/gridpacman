@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.io.*;
 import javax.sound.sampled.*;
 
-public class PacManGame extends World<Actor>
-{
+public class PacManGame extends World<Actor> {
     private final PacMan PAC_MAN;
     private final Blinky BLINKY;
     private final Pinky PINKY;
@@ -24,8 +23,7 @@ public class PacManGame extends World<Actor>
     private boolean gameOver;
     
     // initializes the world
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
       PacManGame game = new PacManGame();
       game.setMessage(PacMap.GAME_MESSAGE);
       game.show();
@@ -33,8 +31,7 @@ public class PacManGame extends World<Actor>
    
    // Pre: none
    // Post: Sets up the grid, pacman, and ghosts
-    public PacManGame()
-    {
+    public PacManGame() {
        super(new BoundedGrid<Actor>(31,28));
        gameOver = false;
        
@@ -61,10 +58,10 @@ public class PacManGame extends World<Actor>
        BOARD.placeDots();
        playAudio(PacMap.INTRO_MUSIC);
     }
+    
     // Pre: none 
     // Post: rotates character depending upon key pressed
-    public boolean keyPressed(String button, Location loc)
-    {
+    public boolean keyPressed(String button, Location loc) {
         if(!gameOver)
         {
             switch(button) {
@@ -87,11 +84,9 @@ public class PacManGame extends World<Actor>
     
     // Pre: none
     // Post: revises step to move, but to make background black every move step
-    public void step()
-    {
+    public void step() {
         Grid<Actor> gr = getGrid();
-        if(PAC_MAN.getGrid() == gr && !gameOver)
-        {
+        if(PAC_MAN.getGrid() == gr && !gameOver) {
             ArrayList<Actor> actors = new ArrayList<Actor>();
             for (Location loc : gr.getOccupiedLocations())
                 actors.add(gr.get(loc));
@@ -112,16 +107,14 @@ public class PacManGame extends World<Actor>
     
     // Pre: none
     // Post:
-    public void checkTimer()
-    {
+    public void checkTimer() {
         if(steps >= PacMap.PHASE_LENGTH)
             switchMode();
     }
     
     // Pre: none
     // Post: Switches ghost mode
-    public void switchMode()
-    {
+    public void switchMode() {
         if(getMode().equals("SCATTER"))
             setMode("CHASE");
         else if(getMode().equals("CHASE"))
@@ -131,8 +124,7 @@ public class PacManGame extends World<Actor>
         steps = 0;
     }
     
-    public void playAudio(String dir)
-    {
+    public void playAudio(String dir) {
         try {
             File audioClip = new File(dir);
             AudioInputStream stream = AudioSystem.getAudioInputStream(audioClip);
@@ -141,39 +133,34 @@ public class PacManGame extends World<Actor>
             Clip clip = (Clip) AudioSystem.getLine(info);
             clip.open(stream);
             clip.start();
-    }
-        catch (Exception e) {
         }
-    }
+            catch (Exception e) {
+            }
+        }
     
     // Pre: none 
     // Post: returns mode
-    public String getMode()
-    {
+    public String getMode() {
         return mode;
     }
     
-    public String stepMessage()
-    {
+    public String stepMessage() {
         return PacMap.GAME_MESSAGE + '\n' + "Current Mode: " + mode
                 + '\t' + '\t' + "Dots eaten: " + PAC_MAN.getDotsEaten();
     }
     
-    public void setMode(String mode)
-    {
+    public void setMode(String mode) {
         this.mode = mode;
     }
     
-    public void endGame()
-    {
+    public void endGame() {
         playAudio(PacMap.PACMAN_DEATH);
         gameOver = true;
         System.out.println(" ** GAME OVER **");
         this.setMessage(" ** GAME OVER **");
     }
     
-    public GameBoard getBoard()
-    {
+    public GameBoard getBoard() {
         return BOARD;
     }
 }
