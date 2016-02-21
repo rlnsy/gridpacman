@@ -2,7 +2,7 @@ package pacman;
 
 // ROWAN LINDSAY + NAT REDFERN
 // APCS
-// v0.5.1 -experimental
+// v0.5.2 -alpha
 
 import info.gridworld.grid.*;
 import info.gridworld.actor.*;
@@ -22,7 +22,7 @@ public class PacManGame extends World<Actor>
     private final int PHASE_LENGTH = 30;
     private final String START_MODE = "SCATTER";
     private int steps;
-    private static final String CURRENT_VERSION = "0.5.1e";
+    private static final String CURRENT_VERSION = "0.5.2a";
     private static final String GAME_MESSAGE = 
             "GridPacMan v" + CURRENT_VERSION + 
             "   |   Use arrow keys to move - avoid the ghosts";
