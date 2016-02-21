@@ -27,7 +27,7 @@ public class PacManGame extends World<Actor>
     public static void main(String[] args)
     {
       PacManGame game = new PacManGame();
-      game.setMessage(PacManMap.GAME_MESSAGE);
+      game.setMessage(PacMap.GAME_MESSAGE);
       game.show();
     }
    
@@ -53,28 +53,34 @@ public class PacManGame extends World<Actor>
        INKY.putSelfInGrid(gr, new Location (14,16));
        CLYDE.putSelfInGrid(gr, new Location (14,15));
        
-       mode = PacManMap.START_MODE;
+       mode = PacMap.START_MODE;
        steps = 0;
        
        //BOARD.makeBackground(true);
        BOARD.makeBoard();
        BOARD.placeDots();
-       playAudio(PacManMap.INTRO_MUSIC);
+       playAudio(PacMap.INTRO_MUSIC);
     }
     // Pre: none 
     // Post: rotates character depending upon key pressed
-    public boolean keyPressed(String description, Location loc)
+    public boolean keyPressed(String button, Location loc)
     {
         if(!gameOver)
         {
-            if (description.equals("UP"))
+            switch(button) {
+            case PacMap.PACMAN_TURN_BUTTON_0:
                 PAC_MAN.turnTo(0);
-            else if (description.equals("DOWN"))
+                break;
+            case PacMap.PACMAN_TURN_BUTTON_180:
                  PAC_MAN.turnTo(180);
-            else if (description.equals("LEFT"))
+                 break;
+            case PacMap.PACMAN_TURN_BUTTON_270:
                  PAC_MAN.turnTo(270);
-            else if (description.equals("RIGHT"))
+                 break;
+            case PacMap.PACMAN_TURN_BUTTON_90:
                  PAC_MAN.turnTo(90);
+                 break;
+            }
         }
         return true;  
     }
@@ -108,7 +114,7 @@ public class PacManGame extends World<Actor>
     // Post:
     public void checkTimer()
     {
-        if(steps >= PacManMap.PHASE_LENGTH)
+        if(steps >= PacMap.PHASE_LENGTH)
             switchMode();
     }
     
@@ -128,21 +134,15 @@ public class PacManGame extends World<Actor>
     public void playAudio(String dir)
     {
         try {
-            File yourFile = new File(dir);
-            AudioInputStream stream;
-            AudioFormat format;
-            DataLine.Info info;
-            Clip clip;
-
-            stream = AudioSystem.getAudioInputStream(yourFile);
-            format = stream.getFormat();
-            info = new DataLine.Info(Clip.class, format);
-            clip = (Clip) AudioSystem.getLine(info);
+            File audioClip = new File(dir);
+            AudioInputStream stream = AudioSystem.getAudioInputStream(audioClip);
+            AudioFormat format = stream.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            Clip clip = (Clip) AudioSystem.getLine(info);
             clip.open(stream);
             clip.start();
     }
         catch (Exception e) {
-            System.out.println(e);
         }
     }
     
@@ -155,7 +155,7 @@ public class PacManGame extends World<Actor>
     
     public String stepMessage()
     {
-        return PacManMap.GAME_MESSAGE + '\n' + "Current Mode: " + mode
+        return PacMap.GAME_MESSAGE + '\n' + "Current Mode: " + mode
                 + '\t' + '\t' + "Dots eaten: " + PAC_MAN.getDotsEaten();
     }
     
@@ -166,7 +166,7 @@ public class PacManGame extends World<Actor>
     
     public void endGame()
     {
-        playAudio(PacManMap.PACMAN_DEATH);
+        playAudio(PacMap.PACMAN_DEATH);
         gameOver = true;
         System.out.println(" ** GAME OVER **");
         this.setMessage(" ** GAME OVER **");

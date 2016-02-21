@@ -46,7 +46,7 @@ public class PacMan extends Bug
         {
             if(neighbour instanceof Cherry)
             {
-                game.playAudio(PacManMap.PACMAN_EAT_FRUIT);
+                game.playAudio(PacMap.PACMAN_EAT_FRUIT);
                 game.setMode("FRIGHTENED");
             }
             else
@@ -54,7 +54,7 @@ public class PacMan extends Bug
             game.getBoard().getDotLocs().remove(next);
         }
         else if(neighbour instanceof Ghost && game.getMode().equals("FRIGHTENED")) {
-            game.playAudio(PacManMap.PACMAN_EAT_GHOST);
+            game.playAudio(PacMap.PACMAN_EAT_GHOST);
             neighbour.removeSelfFromGrid();
         }
         if (gr.isValid(next))
