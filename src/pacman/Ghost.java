@@ -56,8 +56,10 @@ public class Ghost extends Bug
             next = bestLocation(possibleLocations());
         }
         moveDirection = getLocation().getDirectionToward(next);
-        if(gr.get(next).equals(PAC_MAN) && game.getMode().equals("FRIGHTENED"))
+        if(gr.get(next).equals(PAC_MAN) && game.getMode().equals("FRIGHTENED")) {
+            game.playAudio(PacManMap.PACMAN_EAT_GHOST);
             removeSelfFromGrid();
+        }
         else
             moveTo(next);
     }

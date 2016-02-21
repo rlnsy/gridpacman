@@ -24,8 +24,11 @@ public class PacMan extends Bug
     // post: makes PacMan move
     public void act()
     {
-        if (canMove())
+        if (canMove()) {
             move();
+            //game.playAudio(PacManMap.PACMAN_ACT);
+            // TODO: Sync with acting
+        }
     }
     
     // pre: PacMan is on a grid
@@ -43,14 +46,17 @@ public class PacMan extends Bug
         {
             if(neighbour instanceof Cherry)
             {
+                game.playAudio(PacManMap.PACMAN_EAT_FRUIT);
                 game.setMode("FRIGHTENED");
             }
             else
                 dotsEaten++;
             game.getBoard().getDotLocs().remove(next);
         }
-        else if(neighbour instanceof Ghost && game.getMode().equals("FRIGHTENED"))
+        else if(neighbour instanceof Ghost && game.getMode().equals("FRIGHTENED")) {
+            game.playAudio(PacManMap.PACMAN_EAT_GHOST);
             neighbour.removeSelfFromGrid();
+        }
         if (gr.isValid(next))
             moveTo(next);
         else

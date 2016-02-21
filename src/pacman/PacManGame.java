@@ -19,22 +19,15 @@ public class PacManGame extends World<Actor>
     private final Inky INKY;
     private final Clyde CLYDE;
     private final GameBoard BOARD = new GameBoard(getGrid());
-    private final int PHASE_LENGTH = 30;
-    private final String START_MODE = "SCATTER";
     private int steps;
-    private static final String CURRENT_VERSION = "0.5.2a";
-    private static final String GAME_MESSAGE = 
-            "GridPacMan v" + CURRENT_VERSION + 
-            "   |   Use arrow keys to move - avoid the ghosts";
     private String mode;
     private boolean gameOver;
-    
     
     // initializes the world
     public static void main(String[] args)
     {
       PacManGame game = new PacManGame();
-      game.setMessage(GAME_MESSAGE);
+      game.setMessage(PacManMap.GAME_MESSAGE);
       game.show();
     }
    
@@ -60,13 +53,13 @@ public class PacManGame extends World<Actor>
        INKY.putSelfInGrid(gr, new Location (14,16));
        CLYDE.putSelfInGrid(gr, new Location (14,15));
        
-       mode = START_MODE;
+       mode = PacManMap.START_MODE;
        steps = 0;
        
        //BOARD.makeBackground(true);
        BOARD.makeBoard();
        BOARD.placeDots();
-       playMusic();
+       playAudio(PacManMap.INTRO_MUSIC);
     }
     // Pre: none 
     // Post: rotates character depending upon key pressed
@@ -115,7 +108,7 @@ public class PacManGame extends World<Actor>
     // Post:
     public void checkTimer()
     {
-        if(steps >= PHASE_LENGTH)
+        if(steps >= PacManMap.PHASE_LENGTH)
             switchMode();
     }
     
@@ -132,10 +125,10 @@ public class PacManGame extends World<Actor>
         steps = 0;
     }
     
-    public void playMusic()
+    public void playAudio(String dir)
     {
         try {
-            File yourFile = new File("./src/pacman/pacman_beginning.wav");
+            File yourFile = new File(dir);
             AudioInputStream stream;
             AudioFormat format;
             DataLine.Info info;
@@ -162,7 +155,7 @@ public class PacManGame extends World<Actor>
     
     public String stepMessage()
     {
-        return GAME_MESSAGE + '\n' + "Current Mode: " + mode
+        return PacManMap.GAME_MESSAGE + '\n' + "Current Mode: " + mode
                 + '\t' + '\t' + "Dots eaten: " + PAC_MAN.getDotsEaten();
     }
     
@@ -173,6 +166,7 @@ public class PacManGame extends World<Actor>
     
     public void endGame()
     {
+        playAudio(PacManMap.PACMAN_DEATH);
         gameOver = true;
         System.out.println(" ** GAME OVER **");
         this.setMessage(" ** GAME OVER **");

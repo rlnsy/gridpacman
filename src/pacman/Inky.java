@@ -24,7 +24,7 @@ public class Inky extends Ghost
     // post: returns the double vector of Blinky's location to Blinky's targetTile
     public Location chooseTargetTile()
     {
-        if(!(blinky.getTargetTile()== null))
+        if(!(blinky.getTargetTile()== null) && blinky.getGrid() != null)
         {
             Location blinkyLoc = blinky.getLocation();
             Location blinkyTarget = blinky.getTargetTile();
