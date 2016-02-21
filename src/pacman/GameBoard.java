@@ -103,7 +103,7 @@ public class GameBoard {
     {
         ArrayList<Location> cherryLocs = new ArrayList<Location>();
         Random random = new Random();
-        for(int i = 1; i <= NUMBER_OF_CHERRIES; i++)
+        for(int i = 1; i <= (int)(NUMBER_OF_CHERRIES * 2.5); i++)
         {
             Location randLoc = DOT_LOCS.get(random.nextInt(DOT_LOCS.size()));
             cherryLocs.add(randLoc);
