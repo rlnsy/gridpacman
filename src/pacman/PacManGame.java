@@ -21,6 +21,7 @@ public class PacManGame extends World<Actor> {
     private int steps;
     private String mode;
     private boolean gameOver;
+    private Grid<Actor> gr;
     
     // initializes the world
     public static void main(String[] args) {
@@ -35,7 +36,7 @@ public class PacManGame extends World<Actor> {
        super(new BoundedGrid<Actor>(31,28));
        gameOver = false;
        
-       Grid<Actor> gr = getGrid();
+       gr = getGrid();
        
        Location[] scatterLocs = BOARD.getScatLocs();
        PAC_MAN = new PacMan(this);
@@ -62,7 +63,7 @@ public class PacManGame extends World<Actor> {
     // Pre: none 
     // Post: rotates character depending upon key pressed
     public boolean keyPressed(String button, Location loc) {
-        if(!gameOver)
+        if(!gameOver && onGrid(PAC_MAN))
         {
             switch(button) {
             case PacMap.PACMAN_TURN_BUTTON_0:
@@ -85,15 +86,14 @@ public class PacManGame extends World<Actor> {
     // Pre: none
     // Post: revises step to move, but to make background black every move step
     public void step() {
-        Grid<Actor> gr = getGrid();
-        if(PAC_MAN.getGrid() == gr && !gameOver) {
+        if(onGrid(PAC_MAN) && !gameOver) {
             ArrayList<Actor> actors = new ArrayList<Actor>();
             for (Location loc : gr.getOccupiedLocations())
                 actors.add(gr.get(loc));
             for (Actor a : actors)
             {
                 // only act if another actor hasn't removed a
-                if (a.getGrid() == gr && PAC_MAN.getGrid() == gr)
+                if (onGrid(a) && onGrid(PAC_MAN))
                     a.act();
             }
             BOARD.makeBackground(false);
@@ -111,18 +111,6 @@ public class PacManGame extends World<Actor> {
         if(steps >= PacMap.PHASE_LENGTH)
             switchMode();
     }
-    
-    // Pre: none
-    // Post: Switches ghost mode
-//    public void switchMode() {
-//        if(getMode().equals("SCATTER"))
-//            setMode("CHASE");
-//        else if(getMode().equals("CHASE"))
-//            setMode("SCATTER");
-//        else if(getMode().equals("FRIGHTENED"))
-//            setMode("CHASE");
-//        steps = 0;
-//    }
     
     public void switchMode() {
         switch(mode) {
@@ -152,6 +140,11 @@ public class PacManGame extends World<Actor> {
             catch (Exception e) {
             }
         }
+    
+    public boolean onGrid(Actor a)
+    {
+        return a.getGrid() == gr;
+    }
     
     // Pre: none 
     // Post: returns mode
