@@ -23,7 +23,7 @@ public class PacManGame extends World<Actor>
     private static final String CURRENT_VERSION = "0.5.1e";
     private static final String GAME_MESSAGE = 
             "GridPacMan v" + CURRENT_VERSION + 
-            "a   |   Use arrow keys to move - avoid the ghosts";
+            "   |   Use arrow keys to move - avoid the ghosts";
     private String mode;
     private boolean gameOver;
     
