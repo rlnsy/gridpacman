@@ -12,8 +12,7 @@ import info.gridworld.grid.Location;
 import info.gridworld.actor.*;
 import java.util.ArrayList;
 
-public class Ghost extends Bug
-{
+public class Ghost extends Bug {
     private final PacMan PAC_MAN;
     private Location targetTile;
     private int moveDirection;
@@ -22,8 +21,7 @@ public class Ghost extends Bug
 
     // Pre: none 
     // Post: initializes pac man
-    public Ghost(PacMan pacMan, PacManGame game, Location scatterTarget)
-    {
+    public Ghost(PacMan pacMan, PacManGame game, Location scatterTarget) {
         this.PAC_MAN=pacMan;
         targetTile = null;
         moveDirection = 0;
@@ -34,8 +32,7 @@ public class Ghost extends Bug
     
     // Pre: none
     // Post: returns pacman modes and acts
-    public void act()
-    {
+    public void act() {
         Grid<Actor> gr = getGrid();
         String mode = getGame().getMode();
         if(mode.equals("CHASE"))
@@ -43,16 +40,14 @@ public class Ghost extends Bug
         else if(mode.equals("SCATTER"))
             targetTile = scatterTarget;
         Location next = getLocation();
-        if(mode.equals("FRIGHTENED"))
-        {
+        if(mode.equals("FRIGHTENED")) {
             alternateColors(Color.blue, Color.white);
             //setColor(Color.blue);
             int listSize = possibleLocations().size();
             if(listSize >= 1)
                 next = possibleLocations().get((int)(Math.random()*listSize));
         }
-        else
-        {
+        else {
             setColor(null);
             next = bestLocation(possibleLocations());
         }
@@ -67,13 +62,11 @@ public class Ghost extends Bug
     
     // Pre: none
     // Post: returns an array list of locations
-    public ArrayList<Location> possibleLocations()
-    {
+    public ArrayList<Location> possibleLocations() {
         Grid<Actor> gr = getGrid();
 
         ArrayList<Location> possibleLocations = new ArrayList<Location>();
-        for(Location loc : gr.getValidAdjacentLocations(getLocation()))
-        {
+        for(Location loc : gr.getValidAdjacentLocations(getLocation())) {
             Actor a = gr.get(loc);
             boolean empty = (a instanceof BackTile || a instanceof PacMan || a instanceof Dot);
             int locDirection = getLocation().getDirectionToward(loc);
@@ -87,15 +80,12 @@ public class Ghost extends Bug
     
     // Pre: none
     // Post: Finds best possible locations
-    public Location bestLocation(ArrayList<Location> possibleLocations)
-    {
+    public Location bestLocation(ArrayList<Location> possibleLocations) {
         Location bestLocation = getLocation();
         double distanceToTarget = Integer.MAX_VALUE;
-        for(Location loc : possibleLocations)
-        {
+        for(Location loc : possibleLocations) {
             double thisDistance = getDistance(targetTile,loc);
-            if(thisDistance < distanceToTarget)
-            {
+            if(thisDistance < distanceToTarget) {
                 distanceToTarget = thisDistance;
                 bestLocation = loc;
             }
@@ -105,15 +95,13 @@ public class Ghost extends Bug
 
     // Pre: none
     // Post: chosses target tile
-    public Location chooseTargetTile()
-    {
+    public Location chooseTargetTile() {
         return PAC_MAN.getLocation();
     }
     
     // Pre: d1 and d2 are straight compass directions
     // Post: returns true if two directions are compass opposites
-    public boolean areOpposite(int d1, int d2)
-    {
+    public boolean areOpposite(int d1, int d2) {
         if(d1 > d2)
             return ((d1 - d2) == 180);
         else if(d2 > d1)
@@ -123,8 +111,7 @@ public class Ghost extends Bug
 
     // Pre: none
     // Post: gets distance between two points
-    public double getDistance(Location a, Location b)
-    {
+    public double getDistance(Location a, Location b) {
         double p1=(a.getCol()-b.getCol())*(a.getCol()-b.getCol());
         double p2=(a.getRow()-b.getRow())*(a.getRow()-b.getRow());
         double answer=Math.sqrt(p1+p2);
@@ -133,14 +120,12 @@ public class Ghost extends Bug
 
     // Pre: none
     // Post: returns true if loc is a straight move from the current location
-    public boolean straightMove(Location loc)
-    {
+    public boolean straightMove(Location loc) {
         int dir = getLocation().getDirectionToward(loc);
         return ((dir % 90) == 0) || ((dir % 90) == 90);
     }
 
-    public void alternateColors(Color a, Color b)
-    {
+    public void alternateColors(Color a, Color b) {
         if(getColor() == null || getColor().equals(b))
             setColor(a);
         else
@@ -149,29 +134,25 @@ public class Ghost extends Bug
     
     // Pre: none
     // Post: returns target tile
-    public Location getTargetTile()
-    {
+    public Location getTargetTile() {
         return targetTile;
     }
     
     // Pre: none
     // Post: returns pac man
-    public PacMan getPacMan()
-    {
+    public PacMan getPacMan() {
         return PAC_MAN;
     }
     
     // Pre: none 
     // Post: returns game
-    public PacManGame getGame()
-    {
+    public PacManGame getGame() {
         return game;
     }
     
     // Pre: none
     // Post: returns scatter target
-    public Location getScatterTarget()
-    {
+    public Location getScatterTarget() {
         return scatterTarget;
     }
 }

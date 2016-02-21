@@ -17,29 +17,24 @@ public class GameBoard {
     private final Location[] GHOST_SCATTER_LOCATIONS = {new Location(0,26),
         new Location(0,0), new Location(30,26), new Location(30,0)};
     
-    public GameBoard(Grid<Actor> gr)
-    {
+    public GameBoard(Grid<Actor> gr) {
         this.gr = gr;
         NO_DOT_ZONE = getNoDotLocations();
         makeBackground(true);
         CHERRY_LOCATIONS = getCherryLocations();
     }
     
-    public void makeBackground(boolean firstRun)
-    {
+    public void makeBackground(boolean firstRun) {
         placeDots();
         
         int rows = gr.getNumRows();
         int cols = gr.getNumCols();
         // define the dimensions of the grid
         ArrayList<Location> tileLocations = new ArrayList<Location>();
-        for(int r = 0; r < rows; r++)
-        {
-            for(int c = 0; c < cols; c++)
-            {
+        for(int r = 0; r < rows; r++) {
+            for(int c = 0; c < cols; c++) {
                 Location checkLoc = new Location(r,c);
-                if(!(gr.getOccupiedLocations().contains(checkLoc)))
-                {
+                if(!(gr.getOccupiedLocations().contains(checkLoc))) {
                     tileLocations.add(checkLoc);
                     if(firstRun)
                         DOT_LOCS.add(checkLoc);
@@ -47,8 +42,7 @@ public class GameBoard {
             }
         } // get all empty locations on the grid
         
-        for(Location loc : tileLocations)
-        {
+        for(Location loc : tileLocations) {
             BackTile tile = new BackTile();
             tile.putSelfInGrid(gr,loc);
         }
@@ -56,20 +50,15 @@ public class GameBoard {
     
     // Pre: none
     // Post: places dots on the grid
-    public void placeDots()
-    {
-        for(Location loc : DOT_LOCS)
-        {
+    public void placeDots() {
+        for(Location loc : DOT_LOCS) {
             Object o = gr.get(loc);
-            if((o instanceof BackTile || o == null) && !(NO_DOT_ZONE.contains(loc)))
-            {
-                if(CHERRY_LOCATIONS.contains(loc))
-                {
+            if((o instanceof BackTile || o == null) && !(NO_DOT_ZONE.contains(loc))) {
+                if(CHERRY_LOCATIONS.contains(loc)) {
                     Cherry cher = new Cherry();
                     cher.putSelfInGrid(gr, loc);
                 }
-                else
-                {
+                else {
                     Dot dot = new Dot();
                     dot.putSelfInGrid(gr, loc);
                 }
@@ -77,8 +66,7 @@ public class GameBoard {
         }
     }
     
-    public ArrayList<Location> getNoDotLocations()
-    {
+    public ArrayList<Location> getNoDotLocations() {
         ArrayList<Location> noDots = new ArrayList<Location>();
         for(Location loc : scanLocations(new Location(10,0),new Location(12,4)))
             noDots.add(loc);
@@ -99,12 +87,10 @@ public class GameBoard {
         return noDots;
     }
     
-    public ArrayList<Location> getCherryLocations()
-    {
+    public ArrayList<Location> getCherryLocations() {
         ArrayList<Location> cherryLocs = new ArrayList<Location>();
         Random random = new Random();
-        for(int i = 1; i <= (int)(NUMBER_OF_CHERRIES * 2.5); i++)
-        {
+        for(int i = 1; i <= (int)(NUMBER_OF_CHERRIES * 2.5); i++) {
             Location randLoc = DOT_LOCS.get(random.nextInt(DOT_LOCS.size()));
             cherryLocs.add(randLoc);
         }
@@ -113,11 +99,9 @@ public class GameBoard {
     
     // Pre: none 
     // Post: scans for locations and returns array list
-    public ArrayList<Location> scanLocations(Location loc1,Location loc2)
-    {
+    public ArrayList<Location> scanLocations(Location loc1,Location loc2) {
         ArrayList<Location> scan = new ArrayList<Location>();
-        for(int r = loc1.getRow(); r <= loc2.getRow(); r++)
-        {
+        for(int r = loc1.getRow(); r <= loc2.getRow(); r++) {
             for(int c = loc1.getCol(); c <= loc2.getCol(); c++)
                 scan.add(new Location (r,c));
         }
@@ -126,13 +110,11 @@ public class GameBoard {
     
     // Pre: none 
     // Post: returns valid dot locations
-    public ArrayList<Location> getDotLocs()
-    {
+    public ArrayList<Location> getDotLocs() {
         return DOT_LOCS;
     }
     
-    public Location[] getScatLocs()
-    {
+    public Location[] getScatLocs() {
         return GHOST_SCATTER_LOCATIONS;
     }
     
@@ -140,8 +122,7 @@ public class GameBoard {
     
     // Pre: none 
     // Post: constructs the board
-    public void makeBoard()
-    {   // make border
+    public void makeBoard() {   // make border
         makeOuterWall(gr);
         
         // WALL EXTENSIONS
@@ -212,8 +193,7 @@ public class GameBoard {
     
     // Pre: none
     // Post: constructs the ghost house 
-    public void makeGhostHouse(Grid<Actor> gr)
-    {
+    public void makeGhostHouse(Grid<Actor> gr) {
         makeCell(12,10,16,17);
         BackTile cover1 = new BackTile();
         cover1.putSelfInGrid(gr,new Location(12,13));
@@ -223,8 +203,7 @@ public class GameBoard {
     
     // Pre: points have to be located diagonally from each other
     // Post: makes a standard cell wall
-    public void makeCell(int x1, int y1, int x2, int y2)
-    {
+    public void makeCell(int x1, int y1, int x2, int y2) {
         int xExt = (y2-y1)-1;
         int yExt = (x2-x1)-1;
         
@@ -248,14 +227,12 @@ public class GameBoard {
     // Pre: put connecting point first, diagonal outer point last
     //      only works for right and up extrusions
     // Post: constructs an exception cell up or to the right
-    public void makeExceptionCell(int x1, int y1, int x2, int y2)
-    {
+    public void makeExceptionCell(int x1, int y1, int x2, int y2) {
         int xExt = (y2-y1)-1;
         int yExt = (x2-x1)-1;
         
         // Right facing
-        if(x1-x2<=1)
-        {
+        if(x1-x2<=1) {
             CornerWall corner1 = new CornerWall(0);
             corner1.putSelfInGrid(gr,new Location(x1,y1));
             corner1.extend(xExt, 90);
@@ -274,8 +251,7 @@ public class GameBoard {
         }
         
         // Top facing
-        if(x1-x2>1)
-        {
+        if(x1-x2>1) {
             CornerWall corner1 = new CornerWall(270);
             corner1.putSelfInGrid(gr,new Location(x1,y1));
             corner1.extend((x1-x2), 0);
@@ -296,8 +272,7 @@ public class GameBoard {
     // Pre: put connecting point first, diagonal outer point last
     //      only works for down extrusions
     // Post: constructs an exception cell down
-     public void makeExceptionCellDown(int x1, int y1, int x2, int y2)
-    {
+     public void makeExceptionCellDown(int x1, int y1, int x2, int y2) {
         CornerWall corner1 = new CornerWall(180);
         corner1.putSelfInGrid(gr,new Location(x1,y1));
         corner1.extend(x2-x1, 180);
@@ -317,8 +292,7 @@ public class GameBoard {
     // Pre: put connecting point first, diagonal outer point last
     //      only works for Left extrusions
     // Post: constructs an exception cell left
-    public void makeExceptionCellLeft(int x1, int y1, int x2, int y2)
-    {
+    public void makeExceptionCellLeft(int x1, int y1, int x2, int y2)  {
         CornerWall corner1 = new CornerWall(270);
         corner1.putSelfInGrid(gr,new Location(x1,y1));
         corner1.extend(y1-y2, 270);
@@ -338,8 +312,7 @@ public class GameBoard {
 
     // Pre: grid must be large enough
     // Post: constructs a wall around grid
-    public void makeOuterWall(Grid<Actor> gr)
-    {
+    public void makeOuterWall(Grid<Actor> gr) {
         makeCell(0,0,30,27);
         createEmptyProtrusion(gr,90,9,0,13,5);
         createEmptyProtrusion(gr,90,15,0,19,5);
@@ -348,29 +321,24 @@ public class GameBoard {
     }
     // Pre: grid must be large enough 
     // Post: creates an empty wall protrusion 
-    public void createEmptyProtrusion(Grid<Actor> gr, int direction,int x1, int y1, int x2, int y2)
-    {
+    public void createEmptyProtrusion(Grid<Actor> gr, int direction,int x1, int y1, int x2, int y2) {
         makeCell(x1,y1,x2,y2);
-        if(direction == 90)
-        {
+        if(direction == 90) {
             CornerWall corner1 = new CornerWall(0);
             corner1.putSelfInGrid(gr,new Location(x1,y1));
             CornerWall corner2 = new CornerWall(90);
             corner2.putSelfInGrid(gr,new Location(x2,y1));
-            for(int i = x1+1; i <= x2-1; i++)
-            {
+            for(int i = x1+1; i <= x2-1; i++) {
                 BackTile cover = new BackTile();
                 cover.putSelfInGrid(gr,new Location(i,y1));
             }
         }
-        else if(direction == 270)
-        {
+        else if(direction == 270) {
             CornerWall corner1 = new CornerWall(270);
             corner1.putSelfInGrid(gr,new Location(x1,y2));
             CornerWall corner2 = new CornerWall(180);
             corner2.putSelfInGrid(gr,new Location(x2,y2));
-            for(int i = x1+1; i <= x2-1; i++)
-            {
+            for(int i = x1+1; i <= x2-1; i++) {
                 BackTile cover = new BackTile();
                 cover.putSelfInGrid(gr,new Location(i,y2));
             }

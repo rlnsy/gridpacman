@@ -8,17 +8,15 @@ package pacman;
  */
 import info.gridworld.grid.Location;
 
-public class Pinky extends Ghost
-{
-    public Pinky(PacMan pacMan,PacManGame game,Location scatterTarget)
-    {
+public class Pinky extends Ghost {
+    
+    public Pinky(PacMan pacMan,PacManGame game,Location scatterTarget) {
         super(pacMan,game,scatterTarget);
     }
     
     // pre: this Pinky's pacMan is on the grid
     // post: returns the Location 4 tiles ahead of PacMan
-    public Location chooseTargetTile()
-    {
+    public Location chooseTargetTile() {
         PacMan pacman = getPacMan();
         Location targetTile = pacman.getLocation();
         int pacDirection = pacman.getDirection();

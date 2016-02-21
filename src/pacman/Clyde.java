@@ -10,18 +10,16 @@ package pacman;
 
 import info.gridworld.grid.Location;
 
-public class Clyde extends Ghost 
-{    
-    public Clyde(PacMan pacMan, PacManGame game, Location scatterTarget)
-    {
+public class Clyde extends Ghost {   
+    
+    public Clyde(PacMan pacMan, PacManGame game, Location scatterTarget) {
         super(pacMan,game,scatterTarget);
     }
     
     // pre:
     // post: returns PacMan's location of Clyde is more than 8 spaces away.
     // otherwise returns his Scatter Location
-    public Location chooseTargetTile()
-    {
+    public Location chooseTargetTile() {
         Location pacLoc = getPacMan().getLocation();
         double distanceToPacMan = getDistance(getLocation(),pacLoc);
         if(distanceToPacMan < 8)

@@ -6,15 +6,13 @@ package pacman;
 import info.gridworld.grid.*;
 import info.gridworld.actor.*;
 
-public class PacMan extends Bug 
-{
+public class PacMan extends Bug {
     private PacManGame game;
     private int dotsEaten;
     
     // pre: game is an initialized game
     // post: creates a new PacMan
-    public PacMan(PacManGame game)
-    {
+    public PacMan(PacManGame game) {
         this.game = game;
         dotsEaten = 0;
         setColor(null);
@@ -22,8 +20,7 @@ public class PacMan extends Bug
     
     // pre: PacMan is on a grid
     // post: makes PacMan move
-    public void act()
-    {
+    public void act() {
         if (canMove()) {
             move();
             //game.playAudio(PacManMap.PACMAN_ACT);
@@ -34,18 +31,15 @@ public class PacMan extends Bug
     // pre: PacMan is on a grid
     // post: moves to adjacent location in PacMan's direction, if the location
     // contains a dot, mark it as eaten
-    public void move()
-    {
+    public void move() {
         Grid<Actor> gr = getGrid();
         if (gr == null)
             return;
         Location loc = getLocation();
         Location next = loc.getAdjacentLocation(getDirection());
         Actor neighbour = gr.get(next);
-        if(neighbour instanceof Dot)
-        {
-            if(neighbour instanceof Cherry)
-            {
+        if(neighbour instanceof Dot) {
+            if(neighbour instanceof Cherry) {
                 game.playAudio(PacMap.PACMAN_EAT_FRUIT);
                 game.setMode("FRIGHTENED");
             }
@@ -66,8 +60,7 @@ public class PacMan extends Bug
     // pre: direction is positive
     // post: turns PacMan this direction unless there is blocking object in
     // that direction
-    public void turnTo(int direction)
-    {
+    public void turnTo(int direction) {
         Grid<Actor> gr = getGrid();
         Location pacLoc = getLocation();
         Location turnLoc = pacLoc.getAdjacentLocation(direction);
@@ -75,8 +68,7 @@ public class PacMan extends Bug
             setDirection(direction);
     }
     
-    public int getDotsEaten()
-    {
+    public int getDotsEaten() {
         return dotsEaten;
     }
 }
