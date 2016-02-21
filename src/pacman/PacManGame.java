@@ -8,6 +8,8 @@ import info.gridworld.grid.*;
 import info.gridworld.actor.*;
 import info.gridworld.world.*;
 import java.util.ArrayList;
+import java.io.*;
+import javax.sound.sampled.*;
 
 public class PacManGame extends World<Actor>
 {
@@ -64,6 +66,7 @@ public class PacManGame extends World<Actor>
        //BOARD.makeBackground(true);
        BOARD.makeBoard();
        BOARD.placeDots();
+       playMusic();
     }
     // Pre: none 
     // Post: rotates character depending upon key pressed
@@ -127,6 +130,27 @@ public class PacManGame extends World<Actor>
         else if(getMode().equals("FRIGHTENED"))
             setMode("CHASE");
         steps = 0;
+    }
+    
+    public void playMusic()
+    {
+        try {
+            File yourFile = new File("./src/pacman/pacman_beginning.wav");
+            AudioInputStream stream;
+            AudioFormat format;
+            DataLine.Info info;
+            Clip clip;
+
+            stream = AudioSystem.getAudioInputStream(yourFile);
+            format = stream.getFormat();
+            info = new DataLine.Info(Clip.class, format);
+            clip = (Clip) AudioSystem.getLine(info);
+            clip.open(stream);
+            clip.start();
+    }
+        catch (Exception e) {
+            System.out.println(e);
+        }
     }
     
     // Pre: none 
