@@ -41,13 +41,13 @@ public class PacMan extends Bug {
         if(neighbour instanceof Dot) {
             if(neighbour instanceof Cherry) {
                 game.playAudio(PacMap.PACMAN_EAT_FRUIT);
-                game.setMode("FRIGHTENED");
+                game.setMode(PacMap.FRIGHTENED_MODE);
             }
             else
                 dotsEaten++;
             game.getBoard().getDotLocs().remove(next);
         }
-        else if(neighbour instanceof Ghost && game.getMode().equals("FRIGHTENED")) {
+        else if(neighbour instanceof Ghost && game.getMode().equals(PacMap.FRIGHTENED_MODE)) {
             game.playAudio(PacMap.PACMAN_EAT_GHOST);
             neighbour.removeSelfFromGrid();
         }

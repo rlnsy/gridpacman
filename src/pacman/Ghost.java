@@ -35,12 +35,12 @@ public class Ghost extends Bug {
     public void act() {
         Grid<Actor> gr = getGrid();
         String mode = getGame().getMode();
-        if(mode.equals("CHASE"))
+        if(mode.equals(PacMap.CHASE_MODE))
             targetTile = chooseTargetTile();
-        else if(mode.equals("SCATTER"))
+        else if(mode.equals(PacMap.SCATTER_MODE))
             targetTile = scatterTarget;
         Location next = getLocation();
-        if(mode.equals("FRIGHTENED")) {
+        if(mode.equals(PacMap.FRIGHTENED_MODE)) {
             alternateColors(Color.blue, Color.white);
             //setColor(Color.blue);
             int listSize = possibleLocations().size();
@@ -52,7 +52,7 @@ public class Ghost extends Bug {
             next = bestLocation(possibleLocations());
         }
         moveDirection = getLocation().getDirectionToward(next);
-        if(gr.get(next).equals(PAC_MAN) && game.getMode().equals("FRIGHTENED")) {
+        if(gr.get(next).equals(PAC_MAN) && game.getMode().equals(PacMap.FRIGHTENED_MODE)) {
             game.playAudio(PacMap.PACMAN_EAT_GHOST);
             removeSelfFromGrid();
         }

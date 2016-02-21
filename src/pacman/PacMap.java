@@ -8,10 +8,6 @@ public class PacMap {
             "GridPacMan v" + CURRENT_VERSION + 
             "   |   Use arrow keys to move - avoid the ghosts";
     
-    // Game Constants
-    public static final int PHASE_LENGTH = 30;
-    public static final String START_MODE = "SCATTER";
-    
     // Input
     public static final String PACMAN_TURN_BUTTON_0 = "UP";
     public static final String PACMAN_TURN_BUTTON_180 = "DOWN";
@@ -26,4 +22,13 @@ public class PacMap {
     public static final String PACMAN_DEATH = "./src/pacman/sounds/pacman_death.wav";
     public static final String PACMAN_EAT_FRUIT = "./src/pacman/sounds/pacman_eatfruit.wav";
     public static final String PACMAN_EAT_GHOST = "./src/pacman/sounds/pacman_eatghost.wav";
+    
+    // Game Modes
+    public static final String SCATTER_MODE = "Scatter";
+    public static final String CHASE_MODE = "Chase";
+    public static final String FRIGHTENED_MODE = "Frightened";
+    
+    // Game Constants
+    public static final int PHASE_LENGTH = 30;
+    public static final String START_MODE = SCATTER_MODE;
 }

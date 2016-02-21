@@ -114,13 +114,28 @@ public class PacManGame extends World<Actor> {
     
     // Pre: none
     // Post: Switches ghost mode
+//    public void switchMode() {
+//        if(getMode().equals("SCATTER"))
+//            setMode("CHASE");
+//        else if(getMode().equals("CHASE"))
+//            setMode("SCATTER");
+//        else if(getMode().equals("FRIGHTENED"))
+//            setMode("CHASE");
+//        steps = 0;
+//    }
+    
     public void switchMode() {
-        if(getMode().equals("SCATTER"))
-            setMode("CHASE");
-        else if(getMode().equals("CHASE"))
-            setMode("SCATTER");
-        else if(getMode().equals("FRIGHTENED"))
-            setMode("CHASE");
+        switch(mode) {
+            case PacMap.SCATTER_MODE:
+                setMode(PacMap.CHASE_MODE);
+                break;
+            case PacMap.CHASE_MODE:
+                setMode(PacMap.SCATTER_MODE);
+                break;
+            case PacMap.FRIGHTENED_MODE:
+                setMode(PacMap.CHASE_MODE);
+                break;
+        }
         steps = 0;
     }
     
