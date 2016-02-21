@@ -45,7 +45,8 @@ public class Ghost extends Bug
         Location next = getLocation();
         if(mode.equals("FRIGHTENED"))
         {
-            setColor(Color.blue);
+            alternateColors(Color.blue, Color.white);
+            //setColor(Color.blue);
             int listSize = possibleLocations().size();
             if(listSize >= 1)
                 next = possibleLocations().get((int)(Math.random()*listSize));
@@ -138,6 +139,13 @@ public class Ghost extends Bug
         return ((dir % 90) == 0) || ((dir % 90) == 90);
     }
 
+    public void alternateColors(Color a, Color b)
+    {
+        if(getColor() == null || getColor().equals(b))
+            setColor(a);
+        else
+            setColor(b);
+    }
     
     // Pre: none
     // Post: returns target tile
