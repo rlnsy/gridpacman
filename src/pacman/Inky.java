@@ -2,10 +2,9 @@ package pacman;
 
 /**
  * Rowan Lindsay and Nat Redfern
- * Period 5
- * feb 2, 2016
  * Inky is a ghost whose targetTile is determined using Blinky
  */
+
 import info.gridworld.grid.Location;
 
 public class Inky extends Ghost {

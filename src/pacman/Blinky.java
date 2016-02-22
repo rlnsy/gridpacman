@@ -1,9 +1,5 @@
 package pacman;
 
-/**
- *
- * @author Rowan
- */
 import info.gridworld.grid.Location;
 
 public class Blinky extends Ghost {

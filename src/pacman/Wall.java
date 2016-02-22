@@ -2,8 +2,6 @@ package pacman;
 
 /**
  * Rowan Lindsay and Nat Redfern
- * Period 5
- * feb 2, 2016
  * Wall is a rock that has a custom image and the ability to 'extend' itself
  */
  

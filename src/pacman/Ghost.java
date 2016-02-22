@@ -1,11 +1,11 @@
 package pacman;
 
 // ROWAN LINDSAY + NAT REDFERN
-// 2/02/16
 // APCS
-// a blueprint for Ghost class. Ghost is a special bug that, in chase mode,
+// a blueprint for Ghost object. Ghost is a special bug that, in chase mode,
 // moves to the Location closest to its target Locacation. Method's of acquiring
 // targetTiles vary
+
 import java.awt.Color;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;

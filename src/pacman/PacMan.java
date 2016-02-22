@@ -1,8 +1,9 @@
 package pacman;
+
 // ROWAN LINDSAY + NAT REDFERN
-// 2/02/16
 // APCS
 // a blueprint for PacMan class. PacMan is a bug whose direction is affected by user keyStrokes.
+
 import info.gridworld.grid.*;
 import info.gridworld.actor.*;
 

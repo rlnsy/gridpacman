@@ -39,7 +39,7 @@ public class PacMap {
             PacMap.INKY_SCATTER_TARGET_LOCATION,PacMap.CLYDE_SCATTER_TARGET_LOCATION};
     
     // Game Info
-    public static final String CURRENT_VERSION = "0.5.2a";
+    public static final String CURRENT_VERSION = "0.6a";
     public static final String GAME_MESSAGE = 
             "GridPacMan v" + CURRENT_VERSION + 
             "   |   Use arrow keys to move - avoid the ghosts";

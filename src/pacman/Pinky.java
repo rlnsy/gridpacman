@@ -2,10 +2,9 @@ package pacman;
 
 /**
  * Rowan Lindsay and Nat Redfern
- * Period 5
- * feb 2, 2016
  * Pinky is a ghost whose target is the space 4 ahead of PacMan
  */
+
 import info.gridworld.grid.Location;
 
 public class Pinky extends Ghost {

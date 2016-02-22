@@ -2,8 +2,6 @@ package pacman;
 
 /**
  * Rowan Lindsay and Nat Redfern
- * Period 5
- * feb 2, 2016
  * Clyde is a ghost that alternates between targeting methods depending on its
  * proximity to PacMan
  */

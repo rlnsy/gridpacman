@@ -2,7 +2,7 @@ package pacman;
 
 // ROWAN LINDSAY + NAT REDFERN
 // APCS
-// v0.5.2 -alpha
+// v0.6 -alpha
 
 import info.gridworld.grid.*;
 import info.gridworld.actor.*;
@@ -35,10 +35,10 @@ public class PacManGame extends World<Actor> {
     public PacManGame() {
        super(new BoundedGrid<Actor>(31,28));
        gameOver = false;
-       
        gr = getGrid();
-       
        Location[] scatterLocs = PacMap.GHOST_SCATTER_TARGET_LOCATIONS;
+       mode = PacMap.START_MODE;
+       steps = 0;
        
        PAC_MAN = new PacMan(this);
        BLINKY = new Blinky(PAC_MAN,this,scatterLocs[0]);
@@ -52,10 +52,6 @@ public class PacManGame extends World<Actor> {
        INKY.putSelfInGrid(gr, new Location (14,16));
        CLYDE.putSelfInGrid(gr, new Location (14,15));
        
-       mode = PacMap.START_MODE;
-       steps = 0;
-       
-       //BOARD.makeBackground(true);
        BOARD.makeBoard();
        BOARD.placeDots();
        playAudio(PacMap.INTRO_MUSIC);
@@ -64,8 +60,7 @@ public class PacManGame extends World<Actor> {
     // Pre: none 
     // Post: rotates character depending upon key pressed
     public boolean keyPressed(String button, Location loc) {
-        if(!gameOver && onGrid(PAC_MAN))
-        {
+        if(!gameOver && onGrid(PAC_MAN)) {
             switch(button) {
             case PacMap.PACMAN_TURN_BUTTON_0:
                 PAC_MAN.turnTo(0);
