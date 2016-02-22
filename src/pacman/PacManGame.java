@@ -38,7 +38,8 @@ public class PacManGame extends World<Actor> {
        
        gr = getGrid();
        
-       Location[] scatterLocs = BOARD.getScatLocs();
+       Location[] scatterLocs = PacMap.GHOST_SCATTER_TARGET_LOCATIONS;
+       
        PAC_MAN = new PacMan(this);
        BLINKY = new Blinky(PAC_MAN,this,scatterLocs[0]);
        PINKY = new Pinky(PAC_MAN,this,scatterLocs[1]);
@@ -164,8 +165,8 @@ public class PacManGame extends World<Actor> {
     public void endGame() {
         playAudio(PacMap.PACMAN_DEATH);
         gameOver = true;
-        System.out.println(" ** GAME OVER **");
-        this.setMessage(" ** GAME OVER **");
+        System.out.println(PacMap.GAME_OVER_MESSAGE);
+        this.setMessage(PacMap.GAME_OVER_MESSAGE);
     }
     
     public GameBoard getBoard() {

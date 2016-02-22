@@ -9,13 +9,9 @@ import java.util.Random;
 public class GameBoard {
     
     private final Grid<Actor> gr;
-    private final int NUMBER_OF_CHERRIES = 10;
-    private final Location[] CHERRY_LOCS = {new Location(23,20),new Location(21,5)};
     private final ArrayList<Location> DOT_LOCS = new ArrayList<Location>();
     private final ArrayList<Location> NO_DOT_ZONE;
     private final ArrayList<Location> CHERRY_LOCATIONS;
-    private final Location[] GHOST_SCATTER_LOCATIONS = {new Location(0,26),
-        new Location(0,0), new Location(30,26), new Location(30,0)};
     
     public GameBoard(Grid<Actor> gr) {
         this.gr = gr;
@@ -90,7 +86,7 @@ public class GameBoard {
     public ArrayList<Location> getCherryLocations() {
         ArrayList<Location> cherryLocs = new ArrayList<Location>();
         Random random = new Random();
-        for(int i = 1; i <= (int)(NUMBER_OF_CHERRIES * 2.5); i++) {
+        for(int i = 1; i <= (int)(PacMap.NUMBER_OF_CHERRIES * 2.5); i++) {
             Location randLoc = DOT_LOCS.get(random.nextInt(DOT_LOCS.size()));
             cherryLocs.add(randLoc);
         }
@@ -112,10 +108,6 @@ public class GameBoard {
     // Post: returns valid dot locations
     public ArrayList<Location> getDotLocs() {
         return DOT_LOCS;
-    }
-    
-    public Location[] getScatLocs() {
-        return GHOST_SCATTER_LOCATIONS;
     }
     
     // The following are methods for constructing the initial game board shapes
