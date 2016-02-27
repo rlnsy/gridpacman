@@ -54,7 +54,7 @@ public class PacManGame extends World<Actor> {
        
        BOARD.makeBoard();
        BOARD.placeDots();
-       playAudio(PacMap.INTRO_MUSIC);
+       playAudio(PacMap.INTRO_MUSIC); //TODO: add to a starting sequence
     }
     
     // Pre: none 
