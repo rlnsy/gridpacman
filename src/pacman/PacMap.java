@@ -5,6 +5,7 @@ import info.gridworld.grid.Location;
 public class PacMap {
   
     // Input
+    public static final String GAME_START_BUTTON = "ENTER";
     public static final String PACMAN_TURN_BUTTON_0 = "UP";
     public static final String PACMAN_TURN_BUTTON_180 = "DOWN";
     public static final String PACMAN_TURN_BUTTON_270 = "LEFT";
@@ -40,9 +41,11 @@ public class PacMap {
     
     // Game Info
     public static final String CURRENT_VERSION = "0.6a"; // TODO: link to text file
+    public static final String GAME_START_BUTTON_MESSAGE = "press " + GAME_START_BUTTON + " to play";
+    public static final String GAME_VERSION_MESSAGE = "GridPacMan v" + CURRENT_VERSION + "   |   ";
+    public static final String GAME_START_MESSAGE = GAME_VERSION_MESSAGE + "Press run then " + GAME_START_BUTTON_MESSAGE;
     public static final String GAME_MESSAGE = 
-            "GridPacMan v" + CURRENT_VERSION + 
-            "   |   Use arrow keys to move - avoid the ghosts";
+            GAME_VERSION_MESSAGE + "   |   Use arrow keys to move - avoid the ghosts";
     public static final String GAME_OVER_MESSAGE = 
-            " { GAME OVER } ";
+            " // GAME OVER //";
 }

@@ -9,6 +9,7 @@ import info.gridworld.actor.*;
 import info.gridworld.world.*;
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Scanner;
 import javax.sound.sampled.*;
 
 public class PacManGame extends World<Actor> {
@@ -20,13 +21,13 @@ public class PacManGame extends World<Actor> {
     private final GameBoard BOARD = new GameBoard(getGrid());
     private int steps;
     private String mode;
-    private boolean gameOver;
+    private boolean running;
     private Grid<Actor> gr;
     
     // initializes the world
     public static void main(String[] args) {
       PacManGame game = new PacManGame();
-      game.setMessage(PacMap.GAME_MESSAGE);
+      game.setMessage(PacMap.GAME_START_MESSAGE);
       game.show();
     }
    
@@ -34,7 +35,7 @@ public class PacManGame extends World<Actor> {
    // Post: Sets up the grid, pacman, and ghosts
     public PacManGame() {
        super(new BoundedGrid<Actor>(31,28));
-       gameOver = false;
+       running = false;
        gr = getGrid();
        Location[] scatterLocs = PacMap.GHOST_SCATTER_TARGET_LOCATIONS;
        mode = PacMap.START_MODE;
@@ -54,13 +55,14 @@ public class PacManGame extends World<Actor> {
        
        BOARD.makeBoard();
        BOARD.placeDots();
-       playAudio(PacMap.INTRO_MUSIC); //TODO: add to a starting sequence
     }
     
     // Pre: none 
     // Post: rotates character depending upon key pressed
     public boolean keyPressed(String button, Location loc) {
-        if(!gameOver && onGrid(PAC_MAN)) {
+        if(!running && button.equals(PacMap.GAME_START_BUTTON))
+                startGame();
+        if(running && onGrid(PAC_MAN)) {
             switch(button) {
             case PacMap.PACMAN_TURN_BUTTON_0:
                 PAC_MAN.turnTo(0);
@@ -79,10 +81,18 @@ public class PacManGame extends World<Actor> {
         return true;  
     }
     
+    public void startGame() {
+        setMessage(PacMap.GAME_MESSAGE);
+        playAudio(PacMap.INTRO_MUSIC);
+        running = true;
+    }
+    
     // Pre: none
     // Post: revises step to move, but to make background black every move step
     public void step() {
-        if(onGrid(PAC_MAN) && !gameOver) {
+        if(!running && onGrid(PAC_MAN))
+            setMessage(PacMap.GAME_VERSION_MESSAGE + PacMap.GAME_START_BUTTON_MESSAGE);
+        if(onGrid(PAC_MAN) && running) {
             ArrayList<Actor> actors = new ArrayList<Actor>();
             for (Location loc : gr.getOccupiedLocations())
                 actors.add(gr.get(loc));
@@ -97,7 +107,7 @@ public class PacManGame extends World<Actor> {
             checkTimer();
             this.setMessage(stepMessage());
         }
-        else if(!gameOver)
+        else if(running)
             endGame();
     }
     
@@ -159,7 +169,7 @@ public class PacManGame extends World<Actor> {
     
     public void endGame() {
         playAudio(PacMap.PACMAN_DEATH);
-        gameOver = true;
+        running = false;
         System.out.println(PacMap.GAME_OVER_MESSAGE);
         this.setMessage(PacMap.GAME_OVER_MESSAGE);
     }
